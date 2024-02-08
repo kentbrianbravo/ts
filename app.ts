@@ -53,7 +53,12 @@ let savedBook: Book[] = [];
 
 //Display books saved in savedBook array
  const displayBook = () => {
-  console.log(savedBook.sort());
+  console.log(savedBook.sort((a, b) => {
+    let da = new Date(a.date),
+    let db = new Date(b.date);
+    return da - db;
+  })
+);
   main();
 };
 
