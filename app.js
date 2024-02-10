@@ -38,22 +38,35 @@ var addBook = function () {
 var savedBook = [];
 //Display books saved in savedBook array
 var displayBook = function () {
-    savedBook.sort(function (existing, created) {
-        if (existing.title !== created.title) {
-            return existing.title.localeCompare(created.title);
+    savedBook.sort(function (existingBook, newBook) {
+        if (existingBook.title !== newBook.title) {
+            return existingBook.title.localeCompare(newBook.title);
         }
         else {
-            return created.date - existing.date;
+            return newBook.date - existingBook.date;
         }
     });
     console.log(savedBook);
     main();
 };
-//Remove books saved in savedBook array
+//Remove books saved in savedBook array using Splice
 var removeBook = function () {
-    rl.question("Enter line number of book to remove ex: 1 : ", function (answer) {
-        savedBook.splice(parseInt(answer), 1);
-        console.log("Successfully delete book on line ".concat(answer));
+    rl.question("Enter date of book to remove ex:2024 : ", function (answer) {
+        savedBook.forEach(function (existingBook, index) {
+            if (existingBook.date == parseInt(answer)) {
+                savedBook.splice(index, 1);
+            }
+        });
+        console.log("Successfully deleted book with year ".concat(answer));
+        console.log(savedBook);
+        main();
+    });
+};
+//Search books saved in savedBook array and display the results
+var searchBook = function () {
+    rl.question("Enter date of book to search ex:2024 : ", function (answer) {
+        var newSavedBook = savedBook.filter(function (existingBook) { return existingBook.date == parseInt(answer); });
+        console.log(newSavedBook);
         main();
     });
 };
@@ -67,7 +80,7 @@ var main = function () {
                 removeBook();
                 break;
             case "3":
-                console.log("Search");
+                searchBook();
                 break;
             case "4":
                 displayBook();

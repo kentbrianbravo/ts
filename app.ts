@@ -53,12 +53,12 @@ let savedBook: Book[] = [];
 
 //Display books saved in savedBook array
 const displayBook = () => {
-  savedBook.sort((existing, created) => {
-    if (existing.title !== created.title){
-      return existing.title.localeCompare(created.title);
+  savedBook.sort((existingBook, newBook) => {
+    if (existingBook.title !== newBook.title){
+      return existingBook.title.localeCompare(newBook.title);
     }
     else{
-      return created.date - existing.date;
+      return newBook.date - existingBook.date;
     }
   
   });
@@ -70,13 +70,28 @@ const displayBook = () => {
 
 //Remove books saved in savedBook array using Splice
 const removeBook = () => {
-  rl.question("Enter line number of book to remove ex: 1 : ", (answer) => {
-    savedBook.splice(parseInt(answer),1);
-    console.log(`Successfully delete book on line ${answer}`);
+  rl.question("Enter date of book to remove ex:2024 : ", (answer) => {
+    savedBook.forEach((existingBook, index) => {
+      if (existingBook.date == parseInt(answer)) {
+        savedBook.splice(index, 1);
+      }
+  });
+    console.log(`Successfully deleted book with year ${answer}`);
+    console.log(savedBook);
     main();
   });
 }
 
+//Search books saved in savedBook array and display the results
+const searchBook = () => {
+  rl.question("Enter date of book to search ex:2024 : ", (answer) => {
+    let newSavedBook = savedBook.filter(existingBook => existingBook.date == parseInt(answer));
+    
+  
+  console.log(newSavedBook);
+    main();
+  });
+}
 
 
 const main = () => {
@@ -89,7 +104,7 @@ const main = () => {
         removeBook();
         break;
       case "3":
-        console.log("Search");
+        searchBook();
         break;
       case "4":
         displayBook();
