@@ -16,7 +16,7 @@ const rl = readline.createInterface({
 type Book = {
   title: string;
   author: string;
-  date: string;
+  date: number;
 };
 
 
@@ -24,7 +24,7 @@ type Book = {
 const getDetails = (callback: (book: Book) => void) => {
   rl.question("Enter Book Title: ", (title) => {
     rl.question("Enter Book Author: ", (author) => {
-      rl.question("Enter Book Date: ", (date) => {
+      rl.question("Enter Book Date: ", (date:any) => {
         const book: Book = {
           title,
           author,
@@ -52,15 +52,27 @@ const addBook = () => {
 let savedBook: Book[] = [];
 
 //Display books saved in savedBook array
- const displayBook = () => {
-  console.log(savedBook.sort((a, b) => {
-    let da = new Date(a.date),
-    let db = new Date(b.date);
-    return da - db;
-  })
-);
+const displayBook = () => {
+  savedBook.sort((existing, created) => {
+    if (existing.title !== created.title){
+      return existing.title.localeCompare(created.title);
+    }
+    else{
+      return created.date - existing.date;
+    }
+  
+  });
+
+
+  console.log(savedBook);
   main();
 };
+
+//Remove books saved in savedBook array
+const removeBook = () => {
+
+  
+}
 
 
 
@@ -93,33 +105,3 @@ main();
 
 
 
-// // Print Books saved into the object
-// const saveBooks = (book : Book[]) => {
-//   console.log('Book details entered:');
-//   book.forEach(book => {
-//   console.log('Title:', book.title);
-//   console.log('Author:', book.author);
-//   console.log('Date:', book.date);
-// }); 
-// };
-
-
-// const printBook = () => {
-//   const books: Book[] = [];
-//   const addBook = (book: Book) => {
-//       books.push(book);
-//       saveBooks(books);
-//   };
-
-//   bookDetails(addBook);
-// };
-
-
-// function test() {
-//   bookDetails((book) => {
-//     console.log('Book details:');
-//     console.log('Title:', book.title);
-//     console.log('Author:', book.author);
-//     console.log('Date:', book.date);
-//   });
-// }

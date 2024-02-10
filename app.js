@@ -38,7 +38,22 @@ var addBook = function () {
 var savedBook = [];
 //Display books saved in savedBook array
 var displayBook = function () {
-    console.log(savedBook.sort());
+    savedBook.sort(function (existing, created) {
+        if (existing.title !== created.title) {
+            return existing.title.localeCompare(created.title);
+        }
+        else {
+            return created.date - existing.date;
+        }
+    });
+    // person.sort((a, b) => {
+    //   if (a.age !== b.age) {
+    //     return a.age - b.age;
+    //   } else {
+    //     return b.name.localeCompare(a.name);
+    //   }
+    // })
+    console.log(savedBook);
     main();
 };
 var main = function () {
