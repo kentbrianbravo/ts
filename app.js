@@ -46,15 +46,16 @@ var displayBook = function () {
             return created.date - existing.date;
         }
     });
-    // person.sort((a, b) => {
-    //   if (a.age !== b.age) {
-    //     return a.age - b.age;
-    //   } else {
-    //     return b.name.localeCompare(a.name);
-    //   }
-    // })
     console.log(savedBook);
     main();
+};
+//Remove books saved in savedBook array
+var removeBook = function () {
+    rl.question("Enter line number of book to remove ex: 1 : ", function (answer) {
+        savedBook.splice(parseInt(answer), 1);
+        console.log("Successfully delete book on line ".concat(answer));
+        main();
+    });
 };
 var main = function () {
     rl.question("1-add, 2-remove, 3-search, 4 print: ", function (answer) {
@@ -63,7 +64,7 @@ var main = function () {
                 addBook();
                 break;
             case "2":
-                console.log("Remove");
+                removeBook();
                 break;
             case "3":
                 console.log("Search");
@@ -81,28 +82,3 @@ var main = function () {
     });
 };
 main();
-// // Print Books saved into the object
-// const saveBooks = (book : Book[]) => {
-//   console.log('Book details entered:');
-//   book.forEach(book => {
-//   console.log('Title:', book.title);
-//   console.log('Author:', book.author);
-//   console.log('Date:', book.date);
-// }); 
-// };
-// const printBook = () => {
-//   const books: Book[] = [];
-//   const addBook = (book: Book) => {
-//       books.push(book);
-//       saveBooks(books);
-//   };
-//   bookDetails(addBook);
-// };
-// function test() {
-//   bookDetails((book) => {
-//     console.log('Book details:');
-//     console.log('Title:', book.title);
-//     console.log('Author:', book.author);
-//     console.log('Date:', book.date);
-//   });
-// }

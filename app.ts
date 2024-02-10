@@ -24,7 +24,7 @@ type Book = {
 const getDetails = (callback: (book: Book) => void) => {
   rl.question("Enter Book Title: ", (title) => {
     rl.question("Enter Book Author: ", (author) => {
-      rl.question("Enter Book Date: ", (date:any) => {
+      rl.question("Enter Book Date: ", (date : any) => {
         const book: Book = {
           title,
           author,
@@ -68,10 +68,13 @@ const displayBook = () => {
   main();
 };
 
-//Remove books saved in savedBook array
+//Remove books saved in savedBook array using Splice
 const removeBook = () => {
-
-  
+  rl.question("Enter line number of book to remove ex: 1 : ", (answer) => {
+    savedBook.splice(parseInt(answer),1);
+    console.log(`Successfully delete book on line ${answer}`);
+    main();
+  });
 }
 
 
@@ -83,7 +86,7 @@ const main = () => {
         addBook();
         break;
       case "2":
-        console.log("Remove");
+        removeBook();
         break;
       case "3":
         console.log("Search");
