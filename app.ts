@@ -19,12 +19,11 @@ type Book = {
   date: number;
 };
 
-
 //Function to prompt the user for book details and save them into an object
 const getDetails = (callback: (book: Book) => void) => {
   rl.question("Enter Book Title: ", (title) => {
     rl.question("Enter Book Author: ", (author) => {
-      rl.question("Enter Book Date: ", (date : any) => {
+      rl.question("Enter Book Date: ", (date: any) => {
         const book: Book = {
           title,
           author,
@@ -37,16 +36,15 @@ const getDetails = (callback: (book: Book) => void) => {
   });
 };
 
-
 const addBook = () => {
   getDetails((book) => {
-    console.log('Book details:');
-    console.log('Title:', book.title);
-    console.log('Author:', book.author);
-    console.log('Date:', book.date);
+    console.log("Book details:");
+    console.log("Title:", book.title);
+    console.log("Author:", book.author);
+    console.log("Date:", book.date);
     savedBook.push(book);
   });
-}
+};
 
 //Store books in savedBook array
 let savedBook: Book[] = [];
@@ -54,15 +52,12 @@ let savedBook: Book[] = [];
 //Display books saved in savedBook array
 const displayBook = () => {
   savedBook.sort((existingBook, newBook) => {
-    if (existingBook.title !== newBook.title){
+    if (existingBook.title !== newBook.title) {
       return existingBook.title.localeCompare(newBook.title);
-    }
-    else{
+    } else {
       return newBook.date - existingBook.date;
     }
-  
   });
-
 
   console.log(savedBook);
   main();
@@ -75,24 +70,28 @@ const removeBook = () => {
       if (existingBook.date == parseInt(answer)) {
         savedBook.splice(index, 1);
       }
-  });
+    });
     console.log(`Successfully deleted book with year ${answer}`);
     console.log(savedBook);
     main();
   });
-}
+};
 
 //Search books saved in savedBook array and display the results
 const searchBook = () => {
   rl.question("Enter date of book to search ex:2024 : ", (answer) => {
-    let newSavedBook = savedBook.filter(existingBook => existingBook.date == parseInt(answer));
-    
-  
-  console.log(newSavedBook);
+    let newSavedBook = savedBook.filter(
+      (existingBook) => existingBook.date == parseInt(answer)
+    );
+
+    if (newSavedBook.length === 0) {
+      console.log(`No results for for year ${answer}`);
+    } else {
+      console.log(newSavedBook);
+    }
     main();
   });
-}
-
+};
 
 const main = () => {
   rl.question("1-add, 2-remove, 3-search, 4 print: ", (answer) => {
@@ -108,10 +107,10 @@ const main = () => {
         break;
       case "4":
         displayBook();
-      break;
+        break;
       case "5":
-      rl.close();
-      break;
+        rl.close();
+        break;
       default:
         console.log("Invalid answer!");
         main();
@@ -120,6 +119,3 @@ const main = () => {
 };
 
 main();
-
-
-

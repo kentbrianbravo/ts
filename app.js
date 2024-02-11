@@ -27,10 +27,10 @@ var getDetails = function (callback) {
 };
 var addBook = function () {
     getDetails(function (book) {
-        console.log('Book details:');
-        console.log('Title:', book.title);
-        console.log('Author:', book.author);
-        console.log('Date:', book.date);
+        console.log("Book details:");
+        console.log("Title:", book.title);
+        console.log("Author:", book.author);
+        console.log("Date:", book.date);
         savedBook.push(book);
     });
 };
@@ -66,7 +66,12 @@ var removeBook = function () {
 var searchBook = function () {
     rl.question("Enter date of book to search ex:2024 : ", function (answer) {
         var newSavedBook = savedBook.filter(function (existingBook) { return existingBook.date == parseInt(answer); });
-        console.log(newSavedBook);
+        if (newSavedBook.length === 0) {
+            console.log("No results for for year ".concat(answer));
+        }
+        else {
+            console.log(newSavedBook);
+        }
         main();
     });
 };
