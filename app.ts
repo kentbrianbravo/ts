@@ -20,7 +20,7 @@ type Book = {
 };
 
 //Function to prompt the user for book details and save them into an object
-const getDetails = (callback: (book: Book) => void) => {
+const getBookDetails = (callback: (book: Book) => void) => {
   rl.question("Enter Book Title: ", (title) => {
     rl.question("Enter Book Author: ", (author) => {
       rl.question("Enter Book Date: ", (date: any) => {
@@ -37,7 +37,7 @@ const getDetails = (callback: (book: Book) => void) => {
 };
 
 const addBook = () => {
-  getDetails((book) => {
+  getBookDetails((book) => {
     console.log("Book details:");
     console.log("Title:", book.title);
     console.log("Author:", book.author);
@@ -66,11 +66,17 @@ const displayBook = () => {
 //Remove books saved in savedBook array using Splice
 const removeBook = () => {
   rl.question("Enter date of book to remove ex:2024 : ", (answer) => {
-    savedBook.forEach((existingBook, index) => {
-      if (existingBook.date == parseInt(answer)) {
-        savedBook.splice(index, 1);
-      }
-    });
+    // savedBook.forEach((existingBook, index) => {
+    //   if (existingBook.date === parseInt(answer)) {
+    //     savedBook.splice(index, 1);
+    //   }
+    // });    
+    
+    savedBook = savedBook.filter(
+      (existingBook) => existingBook.date != parseInt(answer)
+    );
+
+
     console.log(`Successfully deleted book with year ${answer}`);
     console.log(savedBook);
     main();
@@ -81,11 +87,11 @@ const removeBook = () => {
 const searchBook = () => {
   rl.question("Enter date of book to search ex:2024 : ", (answer) => {
     let newSavedBook = savedBook.filter(
-      (existingBook) => existingBook.date == parseInt(answer)
+      (existingBook) => existingBook.date === parseInt(answer)
     );
 
     if (newSavedBook.length === 0) {
-      console.log(`No results for for year ${answer}`);
+      console.log(`No results for year ${answer}`);
     } else {
       console.log(newSavedBook);
     }

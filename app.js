@@ -10,7 +10,7 @@ var rl = readline.createInterface({
     output: process.stdout,
 });
 //Function to prompt the user for book details and save them into an object
-var getDetails = function (callback) {
+var getBookDetails = function (callback) {
     rl.question("Enter Book Title: ", function (title) {
         rl.question("Enter Book Author: ", function (author) {
             rl.question("Enter Book Date: ", function (date) {
@@ -26,7 +26,7 @@ var getDetails = function (callback) {
     });
 };
 var addBook = function () {
-    getDetails(function (book) {
+    getBookDetails(function (book) {
         console.log("Book details:");
         console.log("Title:", book.title);
         console.log("Author:", book.author);
@@ -52,11 +52,12 @@ var displayBook = function () {
 //Remove books saved in savedBook array using Splice
 var removeBook = function () {
     rl.question("Enter date of book to remove ex:2024 : ", function (answer) {
-        savedBook.forEach(function (existingBook, index) {
-            if (existingBook.date == parseInt(answer)) {
-                savedBook.splice(index, 1);
-            }
-        });
+        // savedBook.forEach((existingBook, index) => {
+        //   if (existingBook.date === parseInt(answer)) {
+        //     savedBook.splice(index, 1);
+        //   }
+        // });    
+        savedBook = savedBook.filter(function (existingBook) { return existingBook.date != parseInt(answer); });
         console.log("Successfully deleted book with year ".concat(answer));
         console.log(savedBook);
         main();
@@ -65,9 +66,9 @@ var removeBook = function () {
 //Search books saved in savedBook array and display the results
 var searchBook = function () {
     rl.question("Enter date of book to search ex:2024 : ", function (answer) {
-        var newSavedBook = savedBook.filter(function (existingBook) { return existingBook.date == parseInt(answer); });
+        var newSavedBook = savedBook.filter(function (existingBook) { return existingBook.date === parseInt(answer); });
         if (newSavedBook.length === 0) {
-            console.log("No results for for year ".concat(answer));
+            console.log("No results for year ".concat(answer));
         }
         else {
             console.log(newSavedBook);
