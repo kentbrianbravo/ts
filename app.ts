@@ -66,17 +66,10 @@ const displayBook = () => {
 //Remove books saved in savedBook array using Splice
 const removeBook = () => {
   rl.question("Enter date of book to remove ex:2024 : ", (answer) => {
-    let ctr:number = 0;
-    let ctrElse:number = 10;
     savedBook.forEach((existingBook, index) => {
       if (existingBook.date == parseInt(answer)) {
         savedBook.splice(index, 1);
-        console.log(ctr);
-        ctr++
-      }
-      else{
-        console.log(ctrElse);
-        ctrElse++;
+        console.log(index);
       }
     });    
     
