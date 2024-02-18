@@ -52,12 +52,17 @@ var displayBook = function () {
 //Remove books saved in savedBook array using Splice
 var removeBook = function () {
     rl.question("Enter date of book to remove ex:2024 : ", function (answer) {
-        savedBook.forEach(function (existingBook, index) {
-            if (existingBook.date == parseInt(answer)) {
-                savedBook.splice(index, 1);
-                console.log(index);
+        // savedBook.forEach((existingBook, index) => {
+        //   if (existingBook.date == parseInt(answer)) {
+        //     savedBook.splice(index, 1);
+        //     console.log(index);
+        //   }
+        // });
+        for (var i = savedBook.length - 1; i >= 0; i--) {
+            if (savedBook[i].date == parseInt(answer)) {
+                savedBook.splice(i, 1);
             }
-        });
+        }
         // savedBook = savedBook.filter(
         //   (existingBook) => existingBook.date != parseInt(answer)
         // );

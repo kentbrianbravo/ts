@@ -66,17 +66,22 @@ const displayBook = () => {
 //Remove books saved in savedBook array using Splice
 const removeBook = () => {
   rl.question("Enter date of book to remove ex:2024 : ", (answer) => {
-    savedBook.forEach((existingBook, index) => {
-      if (existingBook.date == parseInt(answer)) {
-        savedBook.splice(index, 1);
-        console.log(index);
+    // savedBook.forEach((existingBook, index) => {
+    //   if (existingBook.date == parseInt(answer)) {
+    //     savedBook.splice(index, 1);
+    //     console.log(index);
+    //   }
+    // });
+
+    for (let i = savedBook.length - 1; i >= 0; i--) {
+      if (savedBook[i].date == parseInt(answer)) {
+        savedBook.splice(i, 1);
       }
-    });    
-    
+    }
+
     // savedBook = savedBook.filter(
     //   (existingBook) => existingBook.date != parseInt(answer)
     // );
-
 
     console.log(`Successfully deleted book with year ${answer}`);
     console.log(savedBook);
